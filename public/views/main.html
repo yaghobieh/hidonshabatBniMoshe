@@ -1,0 +1,249 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">{{index.infoSection.title | capitalizeWord}}</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#footer">הרשם</a>
+        </li>
+        <li>
+          <a href="#videos">ווידאו</a>
+        </li>
+        <li>
+          <a href="#images">תמונות</a>
+        </li>
+        <li>
+          <a href="#articels">מאמרים</a>
+        </li>
+        <li>
+          <a href="#">ראשי</a>
+        </li>
+        <li class="dropdown" ng-show="index.isLoggedIn">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{index.adminProfile.username | capitalizeWord}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/admin">פאנל ניהול</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">אפשרויות מהירות</li>
+            <li ng-click="index.logout()">
+              <a>התנתק</a>
+            </li>
+            <li>
+              <a href="#">Profile</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!--/.navbar-collapse -->
+  </div>
+</nav>
+
+<div class="container">
+  <div class="jumbotron direction-right header-j">
+    <div class="container wow rotateIn">
+      <h1>{{index.infoSection.title | capitalizeWord}}</h1>
+      <p>{{index.infoSection.body_content}}</p>
+      <p>
+        <a class="btn btn-header btn-lg" href="#" role="button">הרשם לשאלון &raquo;</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container direction-right" id="articels">
+  <p>
+    <h1>מאמרים</h1>
+  </p>
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-4" ng-repeat="article in index.articles">
+        <div class="card card-inverse card-primary wow bounceInLeft">
+          <blockquote class="card-blockquote p-3">
+            <p>{{article.title}}</p>
+            {{article.description}}
+            <br>
+            <span class="glyphicon glyphicon-book"></span>
+            <br>
+            <a class="btn btn-default" href="{{article.fileUrl | limitStr}}" target="_self" download="{{article.title}}" role="button">הורד מאמר</a>
+            <div ng-show="index.isLoggedIn">
+              <button class="btn btn-danger" ng-click="index.deleteFile(articles, $index)">מחק
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+  </div>
+
+  <hr>
+
+  <div class="container direction-right" id="images">
+    <p>
+      <h1>תמונות</h1>
+    </p>
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3 mt-4" ng-repeat="imgSec in index.imgSection">
+        <div class="card card-inverse card-primary wow bounceInLeft">
+          <img class="card-img-top" src="{{imgSec.imageUrl | limitStr }}">
+          <blockquote class="card-blockquote p-3">
+            <p>{{imgSec.title}}</p>
+            {{imgSec.description}}
+            <footer>
+              <small>
+                <cite title="Source Title">{{imgSec.data_upload}}</cite>
+              </small>
+            </footer>
+            <div ng-show="index.isLoggedIn">
+              <button class="btn btn-danger" ng-click="index.deleteImgFactory(imgSection, $index)">מחק
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="container direction-right" id="videos">
+    <p>
+      <h1>סרטונים</h1>
+    </p>
+    <div class="row">
+      <div class="col-sm-6 col-md-4" ng-repeat="video in index.videos">
+        <div class="thumbnail wow bounceInLeft">
+          <h2>{{video.title}}</h2>
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" ng-src="{{video.videoUrl | trustUrl}}"></iframe>
+          </div>
+          <div ng-show="index.isLoggedIn">
+              <button class="btn btn-danger" ng-click="index.deleteVideo(videos, $index)">מחק
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer id="footer" class="clearfix">
+  <div id="footer-widgets">
+
+    <div class="container">
+
+      <div id="footer-wrapper">
+
+        <div class="row">
+          <div class="col-sm-6 col-md-2">
+            <div id="meta-3" class="widget widgetFooter widget_meta">
+              <h4 class="widgettitle">Importent Page :</h4>
+              <ul>
+                <li>
+                  <a href="#">
+                    <i class="fa fa-home fa-fw"></i> Home</a>
+                </li>
+                <li>
+                  <a href="https://www.paypal.me/hidonshabat">
+                      <i class="fa fa-cc-paypal" aria-hidden="true"></i>   תרום לארגון</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end widget1 -->
+
+          <div class="col-sm-6 col-md-2">
+            <div id="recent-posts-3" class="widget widgetFooter widget_recent_entries">
+              <h4 class="widgettitle">Our social media :</h4>
+              <ul>
+                <li>
+                  <a href="https://www.facebook.com/groups/1606036559660269/?ref=bookmarks" target="_blank">
+                    <i class="fa fa-facebook"></i> Facebook</a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/playlist?list=PLKfoTqfTNULrJsFhGImcty5Fzu4lB9aXI" target="_blank">
+                    <i class="fa fa-youtube"></i> Youtube</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end widget1 -->
+
+          <div class="col-sm-6 col-md-5 col-md-offset-3">
+            <div id="meta-4" class="widget widgetFooter widget_meta">
+              <h4 class="widgettitle">Subscribe :</h4>
+
+              <form ng-submit="index.newUser(userPack)" ng-hide="index.spinner">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">שם מלא :</span>
+                    <input class="form-control" placeholder="שם מלא" type="text" ng-model="index.userPack.full_name">
+                    <span class="input-group-btn">
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon">מספר טלפון :</span>
+                    <input class="form-control" placeholder="מספר טלפון" type="text" ng-model="index.userPack.phone">
+                    <span class="input-group-btn">
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon">E-mail :</span>
+                    <input class="form-control" placeholder="מייל" type="text" ng-model="index.userPack.email">
+                    <span class="input-group-btn">
+                    </span>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit">הרשם לחידון !</button>
+              </form>
+              <div>
+                <div class="msg msg-success msg-success-text" ng-show="index.spinner"> <span class="glyphicon glyphicon glyphicon-ok"></span>נרשמת בהצלחה</div>
+                <div class="msg msg-warning msg-danger-text" ng-hide="index.spinner"> <span class="glyphicon glyphicon-exclamation-sign"></span>מלא את הערכים או לפחות <b>מייל ושם מלא</b></div>
+              </div>
+
+            </div>
+          </div>
+          <!-- end widget1 -->
+
+        </div>
+        <!-- end .row -->
+
+      </div>
+      <!-- end #footer-wrapper -->
+
+    </div>
+    <!-- end .container -->
+  </div>
+  <!-- end #footer-widgets -->
+
+  <div id="sub-floor">
+    <div class="container wow bounceInUp">
+      <div class="row">
+        <div class="col-md-4 copyright">
+          Copy right for {{index.infoSection.title | capitalizeWord}} © 2017
+        </div>
+        <div class="col-md-4 col-md-offset-4 attribution">
+          Developer by
+          <a target="_blank" href="http://JFalcon.net">JFalcon</a> .
+        </div>
+      </div>
+      <!-- end .row -->
+    </div>
+  </div>
+
+</footer>
+
